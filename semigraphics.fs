@@ -42,23 +42,23 @@ decimal
 : string
   Create allot does> + ;
 
-( In future cols and rows will be set using DECXCPR. )
-variable cols
-80 cols !
-variable rows
-24 rows !
-rows @ cols @ * string screen
+( In future _cols and _rows will be set using DECXCPR. )
+variable _cols
+40 _cols !
+variable _rows
+24 _rows !
+_rows @ _cols @ * string screen
 
 : gpage ( -- )
-  rows @ cols @ * 0
+  _rows @ _cols @ * 0
   DO     0 i screen c!
   LOOP
   ;
 
 : grefresh ( -- )
-  rows @ cols @ * 0
+  _rows @ _cols @ * 0
   DO     i screen c@ ?dup
-         IF     i cols @ /mod at-xy gemit
+         IF     i _cols @ /mod at-xy gemit
          THEN
   LOOP
   0 0 at-xy ;
@@ -72,7 +72,7 @@ rows @ cols @ * string screen
   2* + 1 swap lshift ( r c gch ) ;
 
 : dotindex ( r c -- index )
-  swap cols @ * + ( index ) ;
+  swap _cols @ * + ( index ) ;
 
 : dotcommon4 ( gch pos -- pos gch old )
   tuck ( pos gch pos )
@@ -127,10 +127,36 @@ variable iK
          4
   +LOOP
   ;
-gpage page exgramod 0 0 cur
+\ Original
+\ 10 I = 1 TO 24:;:;CHR¤(151);:NEXT I
+\ 20 FOR J = 5 TO 57 STEP 4
+\ 30 R = 41-J/2
+\ 40 K = 36-J/2
+\ 50 FOR I = 1 TO J
+\ 60 SETDOT R+I,K
+\ 70 SETDOT R+J,K+I
+\ 80 SETDOT R+J-I,K+J
+\ 90 SETDOT R,K+J-I
+\ 100 NEXT I
+\ 110 NEXT J
+
+: invscreen
+  3 _rows @ * 0
+  DO     2 _cols @ * 0
+         DO     j i dot
+                IF     j i clrdot
+                ELSE   j i setdot
+                THEN
+         LOOP
+
+  LOOP
+  0 0 cur ;
+  
+gpage page exgramod 0 0 cur invscreen invscreen
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
 16 5 clrdot 18 7 clrdot
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
-3 24 cur rows ? cols ?
+3 24 cur _rows ? _cols ?
+screensize _cols ! _rows !
