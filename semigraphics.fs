@@ -6,9 +6,9 @@ decimal
 
 ( To print answer: DECXCPR type )
 : DECXCPR ( -- addr count )
-  BEGIN  stdin key?-file
-  WHILE  stdin key-file drop
-  REPEAT
+  \ BEGIN  stdin key?-file
+  \ WHILE  stdin key-file drop
+  \ REPEAT
   ESC[ ." 6n"
   9 0 DO
   stdin key-file dup 
@@ -28,13 +28,13 @@ decimal
   60960 + dup 60992 >
   IF     32 +
   THEN
-  xemit ; ok
+  xemit ;
 
 : semigraphics3x2 ( -- )
   64 0
   DO     i gemit 61103 xemit
   LOOP
-  ; ok
+  ;
 
 : cur ( r c -- )
   swap at-xy ;
@@ -47,7 +47,6 @@ variable cols
 80 cols !
 variable rows
 24 rows !
-
 rows @ cols @ * string screen
 
 : gpage ( -- )
@@ -113,9 +112,25 @@ rows @ cols @ * string screen
   and 0> ( f ) ;
 
 ( Examples )
+variable iR
+variable iK
+: exgramod ( -- ) \ Translated from ABC 80 BASIC "Bruksanvisning ABC80" p. 30.
+  58 5
+  DO     41 i 2 / - iR ! 
+         36 i 2 / - iK ! 
+         i 1+ 1
+         DO     iR @ i + iK @ setdot 
+                iR @ j + iK @ i + setdot 
+                iR @ j + i - iK @ j + setdot 
+                iR @ iK @ j + i - setdot
+         LOOP
+         4
+  +LOOP
+  ;
+gpage page exgramod 0 0 cur
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
 16 5 clrdot 18 7 clrdot
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
-screensize . .
+3 24 cur rows ? cols ?
