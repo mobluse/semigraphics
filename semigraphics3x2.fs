@@ -140,6 +140,28 @@ variable iK
 \ 100 NEXT I
 \ 110 NEXT J
 
+fvariable x
+: sinus ( -- , f-- ) \ Translated from "ABC om BASIC" p. 120.
+  gpage page 65 0 
+  DO     i s>f 10e f/ x f!
+         35 30e x f@ fsin f* f>s -
+         2 10e x f@ f* f>s +
+         setdot
+  LOOP
+  BEGIN
+  AGAIN ;
+\ Original
+\ 10 PRINT CHR¤(12)
+\ 20 FOR I=0 TO 23 
+\ 30 PRINT CUR(I,0);CHR¤(151);
+\ 40 NEXT I
+\ 50 FOR X=0 TO 6.4 STEP .1
+\ 60 R=35-30*SIN(X)
+\ 70 K=2+10*X
+\ 80 SETDOT R,K
+\ 90 NEXT X
+\ 100 GOTO 100
+
 : invscreen
   3 _rows @ * 0
   DO     2 _cols @ * 0
@@ -159,4 +181,4 @@ gpage page
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
 3 24 cur _rows ? _cols ?
-screensize _cols ! _rows !
+screensize _cols ! _rows ! 0 0 cur
