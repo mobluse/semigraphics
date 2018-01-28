@@ -104,8 +104,9 @@ rows @ cols @ * string screen
   and 0> ( f ) ;
 
 ( Examples )
-999 999 cur decxcpr
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
 16 5 clrdot 18 7 clrdot
+page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
+999 999 cur decxcpr
