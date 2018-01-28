@@ -1,20 +1,28 @@
-( gforth in Ubuntu on WSL in Windows 10, but probably works in other vt100/xterm and OS. )
+( Programming language: GNU Forth/gforth in Ubuntu on WSL for Windows 10, but probably works in other vt100/xterm and OS. )
 ( It depends on font in terminal: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets . )
 ( Paste this in running gforth console. )
 
-(  DECXCPR will change stack-out. )
-: DECXCPR ( -- )
+decimal
+
+( To print answer: DECXCPR type )
+: DECXCPR ( -- addr count )
   BEGIN  stdin key?-file
   WHILE  stdin key-file drop
   REPEAT
   ESC[ ." 6n"
-  BEGIN  stdin key-file dup [char] R <>
-  WHILE  dup 27 =
-  IF  drop
-         ELSE   emit
-         THEN
-  REPEAT
-  drop ;
+  9 0 DO
+  stdin key-file dup 
+  pad i + c!
+  [char] R =
+  IF pad 2 + i 1- LEAVE THEN
+  LOOP ;
+
+: str2coords ( addr count -- r1 c1 )
+  drop 0. rot 5 >number drop 1+ 0. rot 5 >number 2drop drop nip ;
+
+( screensize is similar to form in gforth. )
+: screensize ( -- r c )
+  999 999 at-xy DECXCPR str2coords ;
 
 : gemit ( gch -- )
   60960 + dup 60992 >
@@ -22,7 +30,7 @@
   THEN
   xemit ; ok
 
-: block64 ( -- )
+: semigraphics3x2 ( -- )
   64 0
   DO     i gemit 61103 xemit
   LOOP
@@ -34,6 +42,7 @@
 : string
   Create allot does> + ;
 
+( In future cols and rows will be set using DECXCPR. )
 variable cols
 80 cols !
 variable rows
@@ -109,4 +118,4 @@ gpage page
 16 5 clrdot 18 7 clrdot
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
-999 999 cur decxcpr
+screensize . .
