@@ -46,7 +46,7 @@ decimal
 variable _cols
 40 _cols !
 variable _rows
-24 _rows !
+25 _rows !
 _rows @ _cols @ * string screen
 
 : gpage ( -- )
@@ -82,6 +82,7 @@ _rows @ _cols @ * string screen
   tuck gemit ( new pos )
   screen c! ( ) ;
 
+( ABC80 )
 : setdot ( y x -- )
   dotcommon1
   2dup cur
@@ -111,6 +112,27 @@ _rows @ _cols @ * string screen
   screen c@ ( gch old )
   and 0> ( f ) ;
 
+( ABC800, 24 rows terminal)
+: txpoint ( x y c -- )
+  -rot 77 swap - swap 2 + rot
+  IF setdot
+  ELSE clrdot
+  THEN ;
+  
+: txpointdot ( x y -- f )
+  77 swap - swap 2 +
+  dot ;
+
+( TRS-80 16x64 terminal )
+: set
+  swap setdot ;
+  
+: reset
+  swap clrdot ;
+  
+: point
+  swap dot ;
+
 ( Examples )
 variable iR
 variable iK
@@ -127,7 +149,7 @@ variable iK
          4
   +LOOP
   ;
-\ Original
+\ Original exgramod
 \ 10 I = 1 TO 24:;:;CHR¤(151);:NEXT I
 \ 20 FOR J = 5 TO 57 STEP 4
 \ 30 R = 41-J/2
@@ -150,7 +172,7 @@ fvariable x
   LOOP
   BEGIN
   AGAIN ;
-\ Original
+\ Original sinus
 \ 10 PRINT CHR¤(12)
 \ 20 FOR I=0 TO 23 
 \ 30 PRINT CUR(I,0);CHR¤(151);
@@ -173,12 +195,15 @@ fvariable x
 
   LOOP
   0 0 cur ;
-  
+
+: test
+screensize _cols ! _rows !
 gpage page exgramod 0 0 cur invscreen invscreen
+key drop
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
 16 5 clrdot 18 7 clrdot
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
-3 24 cur _rows ? _cols ?
-screensize _cols ! _rows ! 0 0 cur
+3 25 cur _rows ? _cols ? ;
+test
