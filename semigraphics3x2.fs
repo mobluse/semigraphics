@@ -196,11 +196,11 @@ fvariable x
   LOOP
   0 0 cur ;
 
-: waitforkey ." Press e.g. Enter." key drop ;
+: waitforkey 0 0 cur ." Press e.g. Enter." key drop ;
 
 : test
 screensize _cols ! _rows !
-gpage page exgramod 0 0 cur invscreen invscreen
+gpage page exgramod invscreen invscreen
 waitforkey
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
