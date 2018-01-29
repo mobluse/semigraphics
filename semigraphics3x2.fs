@@ -114,13 +114,13 @@ _rows @ _cols @ * string screen
 
 ( ABC800, 24 rows terminal)
 : txpoint ( x y c -- )
-  -rot 77 swap - swap 2 + rot
+  -rot 3 _rows @ * swap - swap 2 + rot
   IF setdot
   ELSE clrdot
   THEN ;
   
 : txpointdot ( x y -- f )
-  77 swap - swap 2 +
+  3 _rows @ * swap - swap 2 +
   dot ;
 
 ( TRS-80 16x64 terminal )
@@ -196,14 +196,20 @@ fvariable x
   LOOP
   0 0 cur ;
 
+: waitforkey ." Press e.g. Enter." key drop ;
+
 : test
 screensize _cols ! _rows !
 gpage page exgramod 0 0 cur invscreen invscreen
-key drop
+waitforkey
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
+waitforkey
 16 5 clrdot 18 7 clrdot
+waitforkey
+page
+waitforkey
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
-3 25 cur _rows ? _cols ? ;
+0 30 cur _rows ? _cols ? ;
 test
