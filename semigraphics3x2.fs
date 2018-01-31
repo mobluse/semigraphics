@@ -184,6 +184,7 @@ fvariable x
 \ 90 NEXT X
 \ 100 GOTO 100
 
+\ Described in http://www.abc80.net/archive/luxor/ABC80x/ABC806-dator-manual-BASIC-II.pdf .
 : BLK ESC[ ." 22;30m" ;
 
 : RED ESC[ ." 1;31m" ;
