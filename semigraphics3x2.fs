@@ -233,19 +233,18 @@ fvariable x
   gpage page GRN
   78 0 
   DO     i 
-         32 i s>f 5e f/ fsin 15e f* f>s +
+         32 i s>f 5e f/ fsin 30e f* f>s +
          1
          txpoint
   LOOP
   0 15 cur RED FLSH ULN ." SINUS" DFLT ;
-
 \ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
 \ 10 PRINT CHR$(12)
 \ 20 FOR I=0 TO 23
 \ 30 PRINT CUR(I,0) GGRN;
 \ 40 NEXT I
 \ 50 FOR I=0 TO 77
-\ 60 TXPOINT I,32+SIN(I/5)*15
+\ 60 TXPOINT I,32+SIN(I/5)*30
 \ 70 NEXT I
 \ 80 PRINT CUR(0,15) RED FLSH DBLE "SINUS"
 \ 90 END
