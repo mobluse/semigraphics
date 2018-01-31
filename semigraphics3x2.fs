@@ -44,7 +44,7 @@ decimal
 
 ( In future _cols and _rows will be set using DECXCPR. )
 variable _cols
-40 _cols !
+80 _cols !
 variable _rows
 25 _rows !
 _rows @ _cols @ * string screen
@@ -183,6 +183,53 @@ fvariable x
 \ 80 SETDOT R,K
 \ 90 NEXT X
 \ 100 GOTO 100
+
+: BLK ESC[ ." 30m" ;
+
+: RED ESC[ ." 1;31m" ;
+
+: GRN ESC[ ." 1;32m" ;
+
+: YEL ESC[ ." 1;33m" ;
+
+: BLU ESC[ ." 1;34m" ;
+
+: MAG ESC[ ." 1;35m" ;
+
+: CYA ESC[ ." 1;36m" ;
+
+: WHT ESC[ ." 1;37m" ;
+
+: DBLE ESC[ ." 4m" ; \ Here, underline.
+
+: NRML ESC[ ." 24m" ;
+
+: FLSH ESC[ ." 5m" ;
+
+: STDY ESC[ ." 25m" ;
+
+: DFLT ESC[ ." 0m" ;
+
+: sinusII ( -- , f-- )
+  gpage page GRN
+  78 0 
+  DO     i 
+         32 i s>f 5e f/ fsin 15e f* f>s +
+         1
+         txpoint
+  LOOP
+  0 15 cur RED FLSH DBLE ." SINUS" DFLT ;
+
+\ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
+\ 10 PRINT CHR$(12)
+\ 20 FOR I=0 TO 23
+\ 30 PRINT CUR(I,0) GGRN;
+\ 40 NEXT I
+\ 50 FOR I=0 TO 77
+\ 60 TXPOINT I,32+SIN(I/5)*15
+\ 70 NEXT I
+\ 80 PRINT CUR(0,15) RED FLSH DBLE "SINUS"
+\ 90 END
 
 : invscreen
   3 _rows @ * 0
