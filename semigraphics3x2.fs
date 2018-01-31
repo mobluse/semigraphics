@@ -184,7 +184,7 @@ fvariable x
 \ 90 NEXT X
 \ 100 GOTO 100
 
-: BLK ESC[ ." 30m" ;
+: BLK ESC[ ." 22;30m" ;
 
 : RED ESC[ ." 1;31m" ;
 
@@ -204,19 +204,19 @@ fvariable x
 
 : BLBG BLK-NWBG ;
 
-: RED-NWBG ESC[ ." 41m" ;
+: RED-NWBG ESC[ ." 101m" ;
 
-: GRN-NWBG ESC[ ." 42m" ;
+: GRN-NWBG ESC[ ." 102m" ;
 
-: YEL-NWBG ESC[ ." 43m" ;
+: YEL-NWBG ESC[ ." 103m" ;
 
-: BLU-NWBG ESC[ ." 44m" ;
+: BLU-NWBG ESC[ ." 104m" ;
 
-: MAG-NWBG ESC[ ." 45m" ;
+: MAG-NWBG ESC[ ." 105m" ;
 
-: CYA-NWBG ESC[ ." 46m" ;
+: CYA-NWBG ESC[ ." 106m" ;
 
-: WHT-NWBG ESC[ ." 47m" ;
+: WHT-NWBG ESC[ ." 107m" ;
 
 : ULN ESC[ ." 4m" ;
 
