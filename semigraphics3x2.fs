@@ -200,9 +200,27 @@ fvariable x
 
 : WHT ESC[ ." 1;37m" ;
 
-: DBLE ESC[ ." 4m" ; \ Here, underline.
+: BLK-NWBG ESC[ ." 40m" ;
 
-: NRML ESC[ ." 24m" ;
+: BLBG BLK-NWBG ;
+
+: RED-NWBG ESC[ ." 41m" ;
+
+: GRN-NWBG ESC[ ." 42m" ;
+
+: YEL-NWBG ESC[ ." 43m" ;
+
+: BLU-NWBG ESC[ ." 44m" ;
+
+: MAG-NWBG ESC[ ." 45m" ;
+
+: CYA-NWBG ESC[ ." 46m" ;
+
+: WHT-NWBG ESC[ ." 47m" ;
+
+: ULN ESC[ ." 4m" ;
+
+: NULN ESC[ ." 24m" ;
 
 : FLSH ESC[ ." 5m" ;
 
@@ -218,7 +236,7 @@ fvariable x
          1
          txpoint
   LOOP
-  0 15 cur RED FLSH DBLE ." SINUS" DFLT ;
+  0 15 cur RED FLSH ULN ." SINUS" DFLT ;
 
 \ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
 \ 10 PRINT CHR$(12)
