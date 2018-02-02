@@ -86,7 +86,7 @@ _rows @ _cols @ * string screen
   tuck gemit ( new pos )
   screen c! ( ) ;
 
-( ABC80 )
+( ABC80 if 2x2 semigraphics )
 : setdot ( y x -- )
   dotcommon1
   2dup cur
@@ -116,83 +116,57 @@ _rows @ _cols @ * string screen
   screen c@ ( gch old )
   and 0> ( f ) ;
 
-( ABC800, 24 rows terminal)
-: txpoint ( x y c -- )
-  -rot _rows @ 2* swap - swap rot
-  IF setdot
-  ELSE clrdot
-  THEN ;
-  
-: txpointdot ( x y -- f )
-  _rows @ 2* swap - swap
-  dot ;
+( ZX81 )
+: plot ( x y -- )
+  _rows @ 2 - 2* swap - 1- swap
+  setdot ;
 
-( TRS-80 16x64 terminal )
-: set ( x y -- )
-  swap setdot ;
-  
-: reset ( x y -- )
-  swap clrdot ;
-  
-: point ( x y -- f )
-  swap dot ;
+: unplot ( x y -- )
+  _rows @ 2 - 2* swap - 1- swap
+  clrdot ;
+
+: plotted ( x y -- f )
+  _rows @ 2 - 2* swap - 1- swap
+  dot ;
 
 ( Examples )
 
 \ Described in http://www.abc80.net/archive/luxor/ABC80x/ABC806-dator-manual-BASIC-II.pdf .
 : BLK ESC[ ." 22;30m" ;
-
 : RED ESC[ ." 1;31m" ;
-
-: GRN ESC[ ." 1;32m" ;
-
-: YEL ESC[ ." 1;33m" ;
-
-: BLU ESC[ ." 1;34m" ;
-
-: MAG ESC[ ." 1;35m" ;
-
-: CYA ESC[ ." 1;36m" ;
-
-: WHT ESC[ ." 1;37m" ;
-
+: GRN ESC[ ." 22;32m" ;
+: YEL ESC[ ." 22;33m" ;
+: BLU ESC[ ." 22;34m" ;
+: MAG ESC[ ." 22;35m" ;
+: CYA ESC[ ." 22;36m" ;
+: WHT ESC[ ." 22;37m" ;
 : BLK-NWBG ESC[ ." 40m" ;
-
 : BLBG BLK-NWBG ;
-
 : RED-NWBG ESC[ ." 101m" ;
-
 : GRN-NWBG ESC[ ." 102m" ;
-
 : YEL-NWBG ESC[ ." 103m" ;
-
 : BLU-NWBG ESC[ ." 104m" ;
-
 : MAG-NWBG ESC[ ." 105m" ;
-
 : CYA-NWBG ESC[ ." 106m" ;
-
 : WHT-NWBG ESC[ ." 107m" ;
-
 : ULN ESC[ ." 4m" ;
-
 : NULN ESC[ ." 24m" ;
-
 : FLSH ESC[ ." 5m" ;
-
 : STDY ESC[ ." 25m" ;
-
 : DFLT ESC[ ." 0m" ;
+: FLSH-CUR ESC[ ." ?12h" ;
+: STDY-CUR ESC[ ." ?12l" ;
+: SHOW-CUR ESC[ ." ?25h" ;
+: HIDE-CUR ESC[ ." ?25l" ;
 
-: sinusII ( -- , f-- )
-  gpage page GRN
+: sinusZX81 ( -- , f-- )
+  HIDE-CUR gpage WHT-NWBG GRN page
   64 0 
   DO     i 
-         24 i s>f 5e f/ fsin 19e f* f>s +
-         1
-         txpoint
+         22 i s>f 4e f/ fsin 17e f* f>s +
+         plot
   LOOP
-  0 12 cur RED FLSH ULN ." SINUS" DFLT ;
+  0 12 cur RED ." SINUS" BLK 1 0 cur ." ZX81" 23 0 cur ." PRINT 2+2" BLBG WHT ." L" WHT-NWBG BLK 0 0 cur KEY DROP SHOW-CUR ;
 \ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
 \ 10 PRINT CHR$(12)
 \ 20 FOR I=0 TO 23
@@ -205,7 +179,7 @@ _rows @ _cols @ * string screen
 \ 90 END
 
 : invscreen
-  3 _rows @ * 0
+  2 _rows @ * 0
   DO     2 _cols @ * 0
          DO     j i dot
                 IF     j i clrdot
@@ -229,5 +203,5 @@ page
 waitforkey
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
-0 30 cur _rows ? _cols ? ;
+0 16 cur _rows ? _cols ? ;
 test
