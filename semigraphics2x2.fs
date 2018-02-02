@@ -34,12 +34,6 @@ decimal
 
 : gemit codepoints @ xemit ;
 
-: gemit ( gch -- )
-  60960 + dup 60992 >
-  IF     32 +
-  THEN
-  xemit ;
-
 : semigraphics2x2 ( -- )
   9618 xemit 
   16 0 
