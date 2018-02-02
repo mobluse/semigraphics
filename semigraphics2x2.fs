@@ -1,5 +1,5 @@
 ( Programming language: GNU Forth/gforth in Ubuntu on WSL for Windows 10, but probably works in other vt100/xterm and OS. )
-( It depends on font in terminal: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets . )
+( It depends on font in terminal: DejaVu Sans Mono. )
 ( Paste this in running gforth console. )
 
 decimal
@@ -188,11 +188,11 @@ _rows @ _cols @ * string screen
   gpage page GRN
   64 0 
   DO     i 
-         24 i s>f 5e f/ fsin 10e f* f>s +
+         24 i s>f 5e f/ fsin 19e f* f>s +
          1
          txpoint
   LOOP
-  0 15 cur RED FLSH ULN ." SINUS" DFLT ;
+  0 12 cur RED FLSH ULN ." SINUS" DFLT ;
 \ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
 \ 10 PRINT CHR$(12)
 \ 20 FOR I=0 TO 23
