@@ -14,3 +14,6 @@ MS Gothic, NNimSun (almost), and SimSun-ExtB (almost). Unfortunately the 16 char
 I have tested various ZX81 and ZX Spectrum fonts, but none I found worked in the console since they were not monospaced. 
 ZX81 also had characters with gray, but they can be emulated with the others since one can set forground and background color for 
 each position.
+
+![ABC800](https://pbs.twimg.com/media/DU0-hfFX0AIe_LM.jpg:large)
+![ZX81](https://pbs.twimg.com/media/DVAPoNsVwAAfFRv.jpg:large)
