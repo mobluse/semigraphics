@@ -31,6 +31,7 @@ decimal
   xemit ;
 
 : semigraphics3x2 ( -- )
+  61103 xemit  
   64 0
   DO     i gemit 61103 xemit
   LOOP
