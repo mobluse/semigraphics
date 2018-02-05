@@ -367,7 +367,7 @@ waitforkey
 waitforkey
 page
 waitforkey
-page grefresh
+page grefresh2x2
 15 4 dot2x2 . 16 5 dot2x2 . 17 6 dot2x2 . 18 7 dot2x2 .
 0 16 cur _rows ? _cols ? ;
 
@@ -385,3 +385,5 @@ waitforkey
 page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
 0 30 cur _rows ? _cols ? ;
+
+\ test or test2x2
