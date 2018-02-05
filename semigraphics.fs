@@ -77,6 +77,14 @@ _rows @ _cols @ * string screen
   LOOP
   ;
 
+: grefresh2x2 ( -- )
+  _rows @ _cols @ * 0
+  DO     i screen c@ ?dup
+         IF     i _cols @ /mod at-xy gemit2x2
+         THEN
+  LOOP
+  0 0 at-xy ;
+
 : grefresh ( -- )
   _rows @ _cols @ * 0
   DO     i screen c@ ?dup
@@ -104,7 +112,11 @@ _rows @ _cols @ * string screen
   tuck ( pos gch pos )
   screen c@ ( pos gch old ) ;
 
-: dotcommon5 ( pos new -- )
+: dotemit2x2 ( pos new -- )
+  tuck gemit2x2 ( new pos )
+  screen c! ( ) ;
+  
+: dotemit ( pos new -- )
   tuck gemit ( new pos )
   screen c! ( ) ;
   
@@ -117,7 +129,7 @@ _rows @ _cols @ * string screen
   dotindex
   dotcommon4
   or ( pos new )
-  dotcommon5 ;
+  dotemit2x2 ;
 
 : clrdot2x2 ( y x -- )
   dotcommon2x2
@@ -128,7 +140,7 @@ _rows @ _cols @ * string screen
   dotindex
   dotcommon4
   and ( pos new )
-  dotcommon5 ;
+  dotemit2x2 ;
 
 : dot2x2 ( y x -- f )
   dotcommon2x2
@@ -160,7 +172,7 @@ _rows @ _cols @ * string screen
   dotindex
   dotcommon4
   or ( pos new )
-  dotcommon5 ;
+  dotemit ;
 
 : clrdot ( y x -- )
   dotcommon
@@ -171,7 +183,7 @@ _rows @ _cols @ * string screen
   dotindex
   dotcommon4
   and ( pos new )
-  dotcommon5 ;
+  dotemit ;
 
 : dot ( y x -- f )
   dotcommon
@@ -252,6 +264,7 @@ _rows @ _cols @ * string screen
 variable iR
 variable iK
 : exgramod ( -- )
+  DFLT
   58 5
   DO     41 i 2 / - iR ! 
          36 i 2 / - iK ! 
@@ -279,7 +292,7 @@ variable iK
 
 fvariable x
 : sinus ( -- , f-- )
-  gpage page 65 0 
+  DFLT gpage page 65 0 
   DO     i s>f 10e f/ x f!
          35 30e x f@ fsin f* f>s -
          2 10e x f@ f* f>s +
@@ -300,7 +313,7 @@ fvariable x
 \ 100 GOTO 100
 
 : sinusII ( -- , f-- )
-  gpage page GRN
+  DFLT gpage page GRN
   78 0 
   DO     i 
          32 i s>f 5e f/ fsin 30e f* f>s +
