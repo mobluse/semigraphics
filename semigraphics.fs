@@ -6,7 +6,7 @@
 decimal
 
 : page ( -- ) \ Needs to redifine because of current version of Microsoft Windows [Version 10.0.17083.1000].
-  0 0 at-xy ESC[ .\" J" ;
+  0 0 at-xy ESC[ ." J" ;
 
 ( To print answer: DECXCPR type )
 : DECXCPR ( -- addr count )
@@ -243,7 +243,7 @@ _rows @ _cols @ * string screen
 : DBLET .\" \e#3" ;
 : DBLEB .\" \e#4" ;
 : NRML .\" \e#5" ;
-\ GHOL GREL
+\ GCON GSEP
 \ Not in BASIC II
 : DFLT ESC[ ." 0m" ;
 : FLSH-CUR ESC[ ." ?12h" ;
@@ -399,4 +399,4 @@ page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
 0 30 cur _rows ? _cols ? ;
 
-\ test or test2x2
+\ test2x2 or test
