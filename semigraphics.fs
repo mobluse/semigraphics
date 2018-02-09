@@ -333,7 +333,7 @@ fvariable x
          1
          txpoint
   LOOP
-  0 15 cur RED FLSH DBLET SAVE-CUR ." SINUS" CR DBLEB RSTR-CUR CUD ." SINUS" ( CUU ) DFLT ;
+  0 7 cur RED FLSH DBLET SAVE-CUR ." SINUS" CR DBLEB RSTR-CUR CUD ." SINUS" CUD DFLT ;
 \ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
 \ 10 PRINT CHR$(12)
 \ 20 FOR I=0 TO 23
