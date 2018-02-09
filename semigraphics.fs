@@ -239,11 +239,21 @@ _rows @ _cols @ * string screen
 : NULN ESC[ ." 24m" ;
 : FLSH ESC[ ." 5m" ;
 : STDY ESC[ ." 25m" ;
+: EL .\" \e#6" ;
+: DBLET .\" \e#3" ;
+: DBLEB .\" \e#4" ;
+: NRML .\" \e#5" ;
+\ GHOL GREL
+\ Not in BASIC II
 : DFLT ESC[ ." 0m" ;
 : FLSH-CUR ESC[ ." ?12h" ;
 : STDY-CUR ESC[ ." ?12l" ;
 : SHOW-CUR ESC[ ." ?25h" ;
 : HIDE-CUR ESC[ ." ?25l" ;
+: CUU ESC[ [char] A emit ;
+: CUD ESC[ [char] B emit ;
+: SAVE-CUR .\" \e7" ;
+: RSTR-CUR .\" \e8" ;
 
 : sinusZX81 ( -- , f-- )
   HIDE-CUR gpage WHT-NWBG GRN page
@@ -323,7 +333,7 @@ fvariable x
          1
          txpoint
   LOOP
-  0 15 cur RED FLSH ULN ." SINUS" DFLT ;
+  0 15 cur RED FLSH DBLET SAVE-CUR ." SINUS" CR DBLEB RSTR-CUR CUD ." SINUS" ( CUU ) DFLT ;
 \ Original sinus from http://www.abc80.net/archive/luxor/ABC80x/ABC800-manual-BASIC-II.pdf p. 82.
 \ 10 PRINT CHR$(12)
 \ 20 FOR I=0 TO 23
