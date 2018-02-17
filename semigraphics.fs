@@ -1,6 +1,6 @@
 ( Programming language: GNU Forth/gforth in WSL Ubuntu or Raspbian, but probably works in other vt100/xterm and OS. )
-( ABC80&ABC800&TRS-80 needs font: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets . )
-( ZX80&ZX81 works with many fonts e.g.: DejaVu Sans Mono or Monospace. In X if you load teletext2 after Monospace you have both.)
+( ABC80 & ABC800 & TRS-80 need font: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets . )
+( ZX80 & ZX81 works with many fonts e.g.: DejaVu Sans Mono or Monospace. In X if you load teletext2 after Monospace you have both.)
 ( Paste this in running gforth console. )
 
 decimal
@@ -36,25 +36,25 @@ decimal
 
 9608 9631 9625 9604 9628 9616 9626 9623 9627 9630 9612 9622 9600 9629 9624 8199 codepoints!
 
-: gemit2x2 ( gch -- )
+: gemit ( gch -- )
   codepoints @ xemit ;
 
-: gemit ( gch -- )
+: gemit3x2 ( gch -- )
   60960 + dup 60992 >
   IF     32 +
   THEN
   xemit ;
 
-: semigraphics2x2 ( -- )
+: semigraphics ( -- )
   9618 xemit 
   16 0 
-  DO     i gemit2x2 9618 xemit 
+  DO     i gemit 9618 xemit 
   LOOP ;
   
-: semigraphics ( -- )
+: semigraphics3x2 ( -- )
   61103 xemit  
   64 0
-  DO     i gemit 61103 xemit
+  DO     i gemit3x2 61103 xemit
   LOOP
   ;
 
@@ -80,14 +80,6 @@ _rows @ _cols @ * string screen
   LOOP
   ;
 
-: grefresh2x2 ( -- )
-  _rows @ _cols @ * 0
-  DO     i screen c@ ?dup
-         IF     i _cols @ /mod at-xy gemit2x2
-         THEN
-  LOOP
-  0 0 at-xy ;
-
 : grefresh ( -- )
   _rows @ _cols @ * 0
   DO     i screen c@ ?dup
@@ -96,11 +88,19 @@ _rows @ _cols @ * string screen
   LOOP
   0 0 at-xy ;
 
-: dotcommon2x2 ( y x -- dx dy r c )
+: grefresh3x2 ( -- )
+  _rows @ _cols @ * 0
+  DO     i screen c@ ?dup
+         IF     i _cols @ /mod at-xy gemit3x2
+         THEN
+  LOOP
+  0 0 at-xy ;
+
+: dotcommon ( y x -- dx dy r c )
   2 /mod rot 2 /mod ( dx c dy r )
   rot ( dx dy r c ) ;
   
-: dotcommon ( y x -- dx dy r c )
+: dotcommon3x2 ( y x -- dx dy r c )
   2 /mod rot 3 /mod ( dx c dy r )
   rot ( dx dy r c ) ;
   
@@ -115,27 +115,27 @@ _rows @ _cols @ * string screen
   tuck ( pos gch pos )
   screen c@ ( pos gch old ) ;
 
-: dotemit2x2 ( pos new -- )
-  tuck gemit2x2 ( new pos )
-  screen c! ( ) ;
-  
 : dotemit ( pos new -- )
   tuck gemit ( new pos )
   screen c! ( ) ;
   
+: dotemit3x2 ( pos new -- )
+  tuck gemit3x2 ( new pos )
+  screen c! ( ) ;
+  
 ( ABC80 if 2x2 semigraphics )
 : setdot2x2 ( y x -- )
-  dotcommon2x2
+  dotcommon
   2dup cur
   dotcommon2
   -rot ( gch r c )
   dotindex
   dotcommon4
   or ( pos new )
-  dotemit2x2 ;
+  dotemit ;
 
 : clrdot2x2 ( y x -- )
-  dotcommon2x2
+  dotcommon
   2dup cur
   dotcommon2
   invert ( r c igch )
@@ -143,10 +143,10 @@ _rows @ _cols @ * string screen
   dotindex
   dotcommon4
   and ( pos new )
-  dotemit2x2 ;
+  dotemit ;
 
 : dot2x2 ( y x -- f )
-  dotcommon2x2
+  dotcommon
   dotcommon2
   -rot ( gch r c )
   dotindex
@@ -168,17 +168,17 @@ _rows @ _cols @ * string screen
 
 ( ABC80 )
 : setdot ( y x -- )
-  dotcommon
+  dotcommon3x2
   2dup cur
   dotcommon2
   -rot ( gch r c )
   dotindex
   dotcommon4
   or ( pos new )
-  dotemit ;
+  dotemit3x2 ;
 
 : clrdot ( y x -- )
-  dotcommon
+  dotcommon3x2
   2dup cur
   dotcommon2
   invert ( r c igch )
@@ -186,10 +186,10 @@ _rows @ _cols @ * string screen
   dotindex
   dotcommon4
   and ( pos new )
-  dotemit ;
+  dotemit3x2 ;
 
 : dot ( y x -- f )
-  dotcommon
+  dotcommon3x2
   dotcommon2
   -rot ( gch r c )
   dotindex
@@ -345,7 +345,7 @@ fvariable x
 \ 80 PRINT CUR(0,15) RED FLSH DBLE "SINUS"
 \ 90 END
 
-: invscreen2x2
+: invscreen
   2 _rows @ * 0
   DO     2 _cols @ * 0
          DO     j i dot2x2
@@ -357,7 +357,7 @@ fvariable x
   LOOP
   0 0 cur ;
 
-: invscreen
+: invscreen3x2
   3 _rows @ * 0
   DO     2 _cols @ * 0
          DO     j i dot
@@ -371,7 +371,7 @@ fvariable x
   
 : waitforkey 0 0 cur ." Press e.g. Enter." key drop ;
 
-: test2x2
+: test
 screensize _cols ! _rows !
 gpage page
 15 4 setdot2x2 16 5 setdot2x2 17 6 setdot2x2 18 7 setdot2x2
@@ -384,9 +384,9 @@ page grefresh2x2
 15 4 dot2x2 . 16 5 dot2x2 . 17 6 dot2x2 . 18 7 dot2x2 .
 0 16 cur _rows ? _cols ? ;
 
-: test
+: test3x2
 screensize _cols ! _rows !
-gpage page exgramod invscreen invscreen
+gpage page exgramod invscreen3x2 invscreen3x2
 waitforkey
 gpage page
 15 4 setdot 16 5 setdot 17 6 setdot 18 7 setdot
@@ -399,4 +399,4 @@ page grefresh
 15 4 dot . 16 5 dot . 17 6 dot . 18 7 dot .
 0 30 cur _rows ? _cols ? ;
 
-\ test2x2 or test
+\ test or test3x2
