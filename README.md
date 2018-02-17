@@ -1,3 +1,4 @@
+![ZX81](https://pbs.twimg.com/media/DVAPoNsVwAAfFRv.jpg:large)
 # Semigraphics
 Functions for semigraphics similar to ABC80 (setdot, clrdot, dot), ABC800 (txpoint), TRS-80 (set, reset, point), TeleText, 
 Text-TV, TeleData, and Videotex using 3x2 blocks, and ZX81 (plot, unplot) using 2x2 blocks.
@@ -16,4 +17,3 @@ ZX81 also had characters with gray, but they can be emulated with the others sin
 each position.
 
 ![ABC800](https://pbs.twimg.com/media/DU0-hfFX0AIe_LM.jpg:large)
-![ZX81](https://pbs.twimg.com/media/DVAPoNsVwAAfFRv.jpg:large)
