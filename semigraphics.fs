@@ -5,7 +5,7 @@
 
 decimal
 
-: page ( -- ) \ Needs to redifine because of current version of Microsoft Windows [Version 10.0.17083.1000].
+: page ( -- ) \ Needs to redefine because of current version of Microsoft Windows [Version 10.0.17083.1000].
   0 0 at-xy ESC[ ." J" ;
 
 ( To print answer: DECXCPR type )
