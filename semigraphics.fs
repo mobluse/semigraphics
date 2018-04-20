@@ -1,5 +1,6 @@
 ( Programming language: GNU Forth/gforth in WSL Ubuntu or Raspbian, but probably works in other vt100/xterm and OS. )
-( ABC80 & ABC800 & TRS-80 need font: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets . )
+( ABC80 & ABC800 & TRS-80 need font: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets 
+( or Bedstead from http://bjh21.me.uk/bedstead/, but that font only works in WSL Terminal/WSLtty, and not in Cmd.exe. )
 ( ZX80 & ZX81 works with many fonts e.g.: DejaVu Sans Mono or Monospace. In X if you load teletext2 after Monospace you have both.)
 ( You need to have a 25x80 terminal or less. Paste this in running a gforth console or use `include semigraphics.fs`. )
 
