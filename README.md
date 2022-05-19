@@ -5,9 +5,9 @@ Text-TV, TeleData, and Videotex using 3x2 blocks, and ZX81 (plot, unplot) using 
 
 This 3x2 (AKA 2x3) graphics depends on a font in the terminal emulator: teletext2 or teletext4 from
 https://github.com/peterkvt80/Muttlee/tree/master/public/assets or Bedstead from http://bjh21.me.uk/bedstead/. Unfortunately 
-the 64 characters needed for TeleText graphics are not part of Unicode (UTF-8) and these fonts use codepoints for some Chinese 
-characters. *Maybe we could lobby for standard Unicode positions for these TeleText semigraphics characters since they were used 
-by many systems, and are still used.*
+the 64 characters needed for TeleText graphics are on non standard codepoints in Bedstead, and in Unicode these are used for some Chinese 
+characters. Now there are [Symbols for Legacy Computing](https://en.wikipedia.org/wiki/Symbols_for_Legacy_Computing) in the new Unicode standard
+and these also exist in the new version of DejaVu Sans Mono and this has the 64 characters for TeleText graphics.
 
 Video: https://youtu.be/wVY0dhnFev8
 
