@@ -1,5 +1,5 @@
 ( Programming language: GNU Forth/gforth in WSL Ubuntu or Raspbian, but probably works in other vt100/xterm and OS. )
-( ABC80 & ABC800 & TRS-80 need font: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets 
+( ABC80 & ABC800 & TRS-80 need font: teletext2 or teletext4 from https://github.com/peterkvt80/Muttlee/tree/master/public/assets )
 ( or Bedstead from http://bjh21.me.uk/bedstead/, but that font only works in WSL Terminal/WSLtty, and not in Cmd.exe. )
 ( ZX80 & ZX81 works with many fonts e.g.: DejaVu Sans Mono or Monospace. In X if you load teletext2 after Monospace you have both.)
 ( You need to have a 25x80 terminal or less. Paste this in running a gforth console or use `include semigraphics.fs`. )
@@ -33,18 +33,23 @@ decimal
 
 16 intarray codepoints
 
-: codepoints! 16 0 do i codepoints ! loop ;
+: codepoints! 16 0 DO i codepoints ! LOOP ;
 
 9608 9631 9625 9604 9628 9616 9626 9623 9627 9630 9612 9622 9600 9629 9624 8199 codepoints!
 
 : gemit ( gch -- )
   codepoints @ xemit ;
 
-: gemit3x2 ( gch -- )
+: gemit3x2 ( gch -- ) \ Bedstead, teletext2, teletext4
   60960 + dup 60992 >
   IF     32 +
   THEN
   xemit ;
+  
+: gemit3x2 ( gch -- ) \ Symbols for Legacy Computing
+  dup 0= IF drop 8199 ELSE dup 21 = IF drop 9612 ELSE dup 42 = IF drop 9616 ELSE dup 63 = IF drop 9608 THEN THEN THEN THEN
+  dup 63 > IF xemit ELSE dup 42 > IF 2 - ELSE dup 21 > IF 1- THEN THEN 129791 + xemit THEN 
+  ;
 
 : semigraphics ( -- )
   9618 xemit 
