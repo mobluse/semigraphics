@@ -52,11 +52,11 @@ decimal
   ELSE dup 42 = IF drop 9616 \ BLOCK SEXTANT-246 replaced with RIGHT HALF BLOCK
   ELSE dup 63 = IF drop 9608 \ FULL BLOCK
   THEN THEN THEN THEN
-  dup 63 > IF 
-  ELSE dup 42 > IF 2 - 
-  ELSE dup 21 > IF 1- 
-  THEN THEN
-  129791 + 
+  dup 64 < IF
+    dup 42 > IF 2 - 
+    ELSE dup 21 > IF 1- 
+    THEN THEN
+    129791 + 
   THEN
   xemit ;
 
