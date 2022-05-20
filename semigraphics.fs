@@ -47,9 +47,18 @@ decimal
   xemit ;
   
 : gemit3x2 ( gch -- ) \ Symbols for Legacy Computing
-  dup 0= IF drop 8199 ELSE dup 21 = IF drop 9612 ELSE dup 42 = IF drop 9616 ELSE dup 63 = IF drop 9608 THEN THEN THEN THEN
-  dup 63 > IF xemit ELSE dup 42 > IF 2 - ELSE dup 21 > IF 1- THEN THEN 129791 + xemit THEN 
-  ;
+  dup 0= IF drop 8199 \ Figure Space
+  ELSE dup 21 = IF drop 9612 \ BLOCK SEXTANT-135 replaced with LEFT HALF BLOCK
+  ELSE dup 42 = IF drop 9616 \ BLOCK SEXTANT-246 replaced with RIGHT HALF BLOCK
+  ELSE dup 63 = IF drop 9608 \ FULL BLOCK
+  THEN THEN THEN THEN
+  dup 63 > IF 
+  ELSE dup 42 > IF 2 - 
+  ELSE dup 21 > IF 1- 
+  THEN THEN
+  129791 + 
+  THEN
+  xemit ;
 
 : semigraphics ( -- )
   9618 xemit 
