@@ -86,8 +86,9 @@ decimal
 variable _cols
 80 _cols !
 variable _rows
-25 _rows !
+35 _rows !
 _rows @ _cols @ * string screen
+25 _rows !
 
 : gpage ( -- )
   _rows @ _cols @ * 0
