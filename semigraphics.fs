@@ -6,6 +6,8 @@
 
 decimal
 
+: ESC[  27 emit [char] [ emit ; \ From /usr/share/gforth/0.7.3/vt100.fs
+
 : page ( -- ) \ Needs to redefine because of current version of Microsoft Windows [Version 10.0.17083.1000].
   0 0 at-xy ESC[ ." J" ;
 
