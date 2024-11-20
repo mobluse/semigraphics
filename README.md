@@ -14,7 +14,7 @@ and these also exist in the new versions of DejaVu Sans Mono and Monospace Regul
 Video: https://youtu.be/wVY0dhnFev8
 
 Support for ZX80 and ZX81 (plot, unplot) using 2x2 blocks, but these have standard Unicode codepoints and exists in e.g. DejaVu Sans Mono,
-MS Gothic, NNimSun (almost), and SimSun-ExtB (almost). Unfortunately the 16 characters are not in teletext2.ttf or teletext4.ttf. 
+Monospace Regular, MS Gothic, NNimSun (almost), and SimSun-ExtB (almost). Unfortunately the 16 characters are not in teletext2.ttf or teletext4.ttf. 
 I have tested various ZX81 and ZX Spectrum fonts, but none I found worked in the console since they were not monospaced. 
 ZX81 also had characters with gray, but they can be emulated with the others since one can set forground and background color for 
 each position, but they are also supported in Symbols for Legacy Computing.
