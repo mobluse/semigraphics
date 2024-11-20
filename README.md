@@ -1,4 +1,4 @@
-![ZX81](https://pbs.twimg.com/media/DVAPoNsVwAAfFRv.jpg:large)
+![ZX81](https://pbs.twimg.com/media/DVAPoNsVwAATn5q?format=jpg&name=large)
 # Semigraphics
 Functions for semigraphics similar to ABC80 (setdot, clrdot, dot), ABC800 (txpoint), TRS-80 (set, reset, point), TeleText, 
 Text-TV, TeleData, and Videotex using 3x2 blocks, and ZX81 (plot, unplot) using 2x2 blocks.
@@ -19,4 +19,4 @@ I have tested various ZX81 and ZX Spectrum fonts, but none I found worked in the
 ZX81 also had characters with gray, but they can be emulated with the others since one can set forground and background color for 
 each position, but they are also supported in Symbols for Legacy Computing.
 
-![ABC800](https://pbs.twimg.com/media/DU0-hfFX0AIe_LM.jpg:large)
+![ABC800](https://pbs.twimg.com/media/DU0-hfFX0AIk9yN?format=jpg&name=large)
